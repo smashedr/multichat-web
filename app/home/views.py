@@ -1,4 +1,5 @@
 import logging
+import subprocess
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -36,7 +37,9 @@ def add_bot(request):
 
 def start_bot(channel):
     try:
-        return True
+        output = subprocess.check_output(['/srv/sopel/mulcht/mulcht-init.sh', channel])
+        logger.info(output)
+        return output
     except Exception:
         return False
 
