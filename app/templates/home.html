@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+{% load staticfiles %}
 {% block home_active %}active{% endblock %}
 {% block title %}Home{% endblock %}
 {% load home_tags %}
@@ -9,7 +10,38 @@
     <div class="row mt-2">
         <div class="col">
             <h1>MultiChat Twitch Bot</h1>
-            <p class="lead">Coming Soon...</p>
+            <p class="lead">MultiChat Bot for Twitch will relay messages between multiple Twitch channels during a coop stream.</p>
+            {% include 'include/alerts.html' %}
+            {% if not request.user.is_authenticated %}
+                <p>To add the bot to your channel, please log in first...</p>
+                <a class="btn btn-lg btn-info" href="{% url 'oauth:login' %}?next={{ request.path }}" role="button">
+                    Log In with Twitch to Add MultiChat <i class="fas fa-sign-in-alt"></i></a>
+            {% else %}
+                {% if bot.active %}
+                    <div class="alert alert-primary">
+                        <strong>The MultiChat bot is active in your channel!</strong>
+                    </div>
+                {% else %}
+                    <div class="alert alert-secondary">
+                        <strong>The MultiChat bot is currently disabled in your channel!</strong>
+                    </div>
+                    <a id="add-bot-btn" class="btn btn-lg btn-success" href="#" role="button">
+                        Add MultiChat to {{ request.user.username }} <i class="fas fa-sign-in-alt"></i></a>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
+{% endblock %}
+
+{% block footer %}
+    {% if request.user.is_authenticated %}
+        <form id="add-bot-form" action="{% url 'home:add' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block tail %}
+    <script type="text/javascript" src="{% static 'main/js/home.js' %}"></script>
 {% endblock %}
