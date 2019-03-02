@@ -11,8 +11,8 @@ pipeline {
         timeout(time: 1, unit: 'HOURS')
     }
     environment {
-        DEV_PORT = '10296'
-        PROD_PORT = '10297'
+        DEV_PORT = '10931'
+        PROD_PORT = '10932'
         DISCORD_ID = "smashed-alerts"
         COMPOSE_FILE = "docker-compose-swarm.yml"
 
