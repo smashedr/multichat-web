@@ -9,8 +9,9 @@
 {% block body %}
     <div class="row mt-2">
         <div class="col">
-            <h1>MultiChat Twitch Bot</h1>
-            <p class="lead">MultiChat Bot for Twitch will relay messages between multiple Twitch channels during a coop stream.</p>
+            <h1>MultiChat Bot for Twitch</h1>
+            <p class="lead">The MultiChat Bot for Twitch will relay messages between multiple Twitch channels during a co-op stream.</p>
+            <p>For more information visit: <a href="https://www.twitch.tv/mulcht" target="_blank" class="text-info">https://www.twitch.tv/mulcht</a></p>
             {% include 'include/alerts.html' %}
             {% if not request.user.is_authenticated %}
                 <p>To add the bot to your channel, please log in first...</p>
